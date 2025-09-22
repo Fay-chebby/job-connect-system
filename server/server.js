@@ -7,6 +7,7 @@ const authRoutes = require("./Routes/auth.route");
 const userRoute = require("./Routes/user.route");
 const jobsRoute = require("./Routes/jobs.route ");
 const applicationRoutes = require("./Routes/application.route");
+const savedJobsRoutes = require("./Routes/savedJobs.route");
 
 // load env
 dotenv.config();
@@ -25,6 +26,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoute);
 app.use("/api/jobs", jobsRoute);
 app.use("/api/application", applicationRoutes);
+app.use("/api/save-jobs", savedJobsRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
