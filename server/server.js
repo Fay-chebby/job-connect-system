@@ -8,6 +8,7 @@ const userRoute = require("./Routes/user.route");
 const jobsRoute = require("./Routes/jobs.route ");
 const applicationRoutes = require("./Routes/application.route");
 const savedJobsRoutes = require("./Routes/savedJobs.route");
+const analyticsRoutes = require("./Routes/analytics.route");
 
 // load env
 dotenv.config();
@@ -27,6 +28,7 @@ app.use("/api/user", userRoute);
 app.use("/api/jobs", jobsRoute);
 app.use("/api/application", applicationRoutes);
 app.use("/api/save-jobs", savedJobsRoutes);
+app.use("/api/analytics", analyticsRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

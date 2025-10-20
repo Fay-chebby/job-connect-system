@@ -23,16 +23,41 @@ exports.createJob = async (req, res) => {
   }
 };
 exports.getJobs = async (req, res) => {
-  const { keyword, location, category, type, minSalary, maxSalary, userId } =
-    req.query;
+  const {
+    keyword,
+    location,
+    category,
+    jobType,
+    experienceLevel,
+    minSalary,
+    maxSalary,
+    datePosted,
+    tags,
+    userId,
+  } = req.query;
 
   const query = {
-    isClosed: false,
+    status: "open",
     ...(keyword && { title: { $regex: keyword, $options: "i" } }),
     ...(location && { location: { $regex: location, $options: "i" } }),
     ...(category && { category }),
-    ...(type && { type }),
+    ...(jobType && { jobType }),
+    ...(experienceLevel && { experienceLevel }),
+    ...(tags && { skills: { $in: tags.split(",") } }),
   };
+
+  if (datePosted) {
+    const now = new Date();
+    const dateMap = {
+      hour: new Date(now - 60 * 60 * 1000),
+      day: new Date(now - 24 * 60 * 60 * 1000),
+      week: new Date(now - 7 * 24 * 60 * 60 * 1000),
+      month: new Date(now - 30 * 24 * 60 * 60 * 1000),
+    };
+    if (dateMap[datePosted]) {
+      query.createdAt = { $gte: dateMap[datePosted] };
+    }
+  }
   if (minSalary || maxSalary) {
     query.$and = [];
 
