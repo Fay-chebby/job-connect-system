@@ -6,11 +6,7 @@ const ApplicationSchema = new mongoose.Schema({
     ref: "Job",
     required: true,
   },
-  jobSeeker: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "JobSeeker",
-    required: true,
-  },
+
   coverLetter: {
     type: String,
   },

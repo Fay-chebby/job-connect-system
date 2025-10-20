@@ -17,19 +17,49 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  companyName: {
+    type: String,
+    required: function () {
+      return this.role === "employer";
+    },
+  },
+  industry: {
+    type: String,
+    required: function () {
+      return this.role === "employer";
+    },
+  },
+  companySize: {
+    type: String,
+    required: function () {
+      return this.role === "employer";
+    },
+  },
+  location: {
+    type: String,
+    required: function () {
+      return this.role === "employer";
+    },
+  },
+  description: {
+    type: String,
+    required: function () {
+      return this.role === "employer";
+    },
+  },
+  avatar: {
+    type: String,
+    default: "default-avatar.jpg",
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
   createdAt: { type: Date, default: Date.now },
   resetPasswordToken: String,
   resetPasswordExpiresAt: Date,
   verificationToken: String,
   verificationTokenExpiresAt: Date,
 });
-
-// // Hash password before saving it to the database
-// userSchema.pre("save", async function (next) {
-//   if (!this.isModified("password")) return next();
-//   const salt = await bcrypt.genSalt(10);
-//   this.password = await bcrypt.hash(this.password, salt);
-//   next();
-// });
 
 module.exports = mongoose.model("user", userSchema);
